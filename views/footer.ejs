@@ -1,0 +1,39 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Joke Generator</title>
+</head>
+<body>
+  <div id="joke-container">
+    
+    <p id="initial-joke"></p>
+  </div>
+  <button id="generate-joke">Generate Joke</button>
+
+  <script>
+    
+    async function fetchAndDisplayJoke() {
+      try {
+        const jokeContainer = document.getElementById('joke-container');
+        const initialJokeElement = document.getElementById('initial-joke');
+        
+        const response = await fetch('/jokes');
+        const jokeData = await response.json();
+
+    
+        initialJokeElement.textContent = jokeData.setup + ' ' + jokeData.punchline;
+      } catch (error) {
+        console.error('Error fetching joke:', error);
+      }
+    }
+
+    
+    document.getElementById('generate-joke').addEventListener('click', fetchAndDisplayJoke);
+
+    
+    window.onload = fetchAndDisplayJoke;
+  </script>
+</body>
+</html>
